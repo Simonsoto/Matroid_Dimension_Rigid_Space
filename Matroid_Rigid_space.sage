@@ -270,6 +270,7 @@ def transformate_matroid_to_letter(matroid):
 
 
     
+
 '''
 Function that take the list of matroids on up to 9 elements and calculate the dimension fo D_M
 as presented in previously.
@@ -283,37 +284,34 @@ def matroids_up_to_nine(matroid_dict):
     print('making the copy')
     #The keys from the dictionary
     keys=matroid_dict.keys()
-    print('These are the keys '+str(keys))
-    
-    
+        
     
     #working with the list of matroids that is in every key.
+    print('working with each of the keys that have at least 4 elements and at least rank 2')
     for key in keys:
         #For each key of the dictionary, we extract the required information.
         r=key[0]
-        print(r)
+        
         n=key[0]+key[1]
-        print(n)
+        
         #Algorithm make sense for matroid of rank at least 2 and with at least 4 elements.
         if (r>=2 and n>=4):
-            print('Entre aca')
+            
             #list of matroids of rank r on n elements
             matroids=matroid_dict[key]
-            print(matroids)
-            
             #Work with each matroid.
             #list to put in the dictionary key that we are looking
             new_info=[]
-            print(type(new_info))
             for element in range(len(matroids)):
                 #Make sure that we can work with it by changing the ground set to the one we created the programs for
                 matroid= transformate_matroid_to_letter(matroids[element])
                 new_info.append([matroids[element],dimension_D_M(matroid)])
                 
                 
+                
             matroid_copy[key]=new_info
+        print('New information added')
     return matroid_copy
-
 
 matroids= load('matroid_9.sobj')
 matroids_up_to_nine(matroids)
