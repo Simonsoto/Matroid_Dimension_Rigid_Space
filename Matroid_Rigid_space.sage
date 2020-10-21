@@ -313,3 +313,7 @@ def matroids_up_to_nine(matroid_dict):
                 
             matroid_copy[key]=new_info
     return matroid_copy
+
+
+matroids= load('matroid_9.sobj')
+matroids_up_to_nine(matroids)
