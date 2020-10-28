@@ -1,3 +1,11 @@
+
+#Importing the necessary packages! Desktop
+
+from sage.matroids.advanced import *
+from sage.matroids.named_matroids import *
+from sage.sets.set import *
+
+
 '''Usefull information of matroid functions already implemented
 .circuits() Return the collection of circuits.
 .cocircuits() Return the collection of cocircuits.
@@ -213,7 +221,6 @@ def dimension_D_M(matroid):
     dimension = dim(kernel(matrix))-size
     return dimension
 
-
 '''
 Keys of the dictionary of matroids up to 9 elements:
 Comments on the file matroid_9.sobj
@@ -270,7 +277,6 @@ def transformate_matroid_to_letter(matroid):
 
 
     
-
 '''
 Function that take the list of matroids on up to 9 elements and calculate the dimension fo D_M
 as presented in previously.
@@ -287,31 +293,40 @@ def matroids_up_to_nine(matroid_dict):
         
     
     #working with the list of matroids that is in every key.
-    print('working with each of the keys that have at least 4 elements and at least rank 2')
+#     print('working with each of the keys that have at least 4 elements and at least rank 2')
     for key in keys:
+        print(key)
         #For each key of the dictionary, we extract the required information.
         r=key[0]
         
         n=key[0]+key[1]
         
         #Algorithm make sense for matroid of rank at least 2 and with at least 4 elements.
-        if (r>=2 and n>=4):
+        if (r>=2 and n>=4 and n-r>1):
             
             #list of matroids of rank r on n elements
             matroids=matroid_dict[key]
+            print(len(matroids))
             #Work with each matroid.
             #list to put in the dictionary key that we are looking
             new_info=[]
+            
             for element in range(len(matroids)):
                 #Make sure that we can work with it by changing the ground set to the one we created the programs for
                 matroid= transformate_matroid_to_letter(matroids[element])
+                
                 new_info.append([matroids[element],dimension_D_M(matroid)])
                 
                 
                 
             matroid_copy[key]=new_info
-        print('New information added')
+#             print(new_info)
+            print('New information added')
+    print('I have finished')
     return matroid_copy
 
-matroids= load('matroid_9.sobj')
-matroids_up_to_nine(matroids)
+
+#Loading the dictionary with matroids up to 9 elements.
+# matroids_9=load('matroid_9.sobj')
+new_data=matroids_up_to_nine(matroids_9)
+save(new_data, 'matroid_9andRigid.sobj')
